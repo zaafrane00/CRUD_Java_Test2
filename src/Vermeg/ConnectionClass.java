@@ -26,7 +26,7 @@ public class ConnectionClass {
         stm=myConnection.createStatement();
         String req="";
         req="insert into "+table+"(title,auther,price,releasee)values('"+book.title+"','"+book.auther+"',"+book.price+","+book.release+")";
-        System.out.println(req);
+        //System.out.println(req);
         stm.executeUpdate(req);
     }
         
@@ -35,14 +35,14 @@ public class ConnectionClass {
         String response[][];
         String req="";      
         req="select* from "+table;
-        System.err.println(req);
+       // System.err.println(req);
         res=stm.executeQuery(req); 
         //reference last row in the table
         res.last();
         int taille=res.getRow();
          //returning reference to his default value in the table
         res.beforeFirst();
-        System.out.println(taille);
+        //System.out.println(taille);
         response=new String[taille][5];
         int i=0;
         while(res.next()) {

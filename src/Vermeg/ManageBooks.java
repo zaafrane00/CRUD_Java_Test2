@@ -30,6 +30,7 @@ public class ManageBooks {
       
        public void store(Book b)throws SQLException{
         this.conec.addBook(b,"books");
+           System.out.println("Book successfully added");
     }
        
         public String[][] index()throws SQLException{
@@ -42,9 +43,10 @@ public class ManageBooks {
            public static void main(String args[]){
         try {
             ManageBooks manager=new ManageBooks();
-            Book b=new Book(3,"book3","hamza",50.99,2020);
+            Book b=new Book(7,"book4","mohamed",50.99,2019);
             System.out.println(b);
-            //manager.store(b);
+            manager.index();
+            manager.store(b);
             manager.index();
              
         } catch (SQLException ex) {
