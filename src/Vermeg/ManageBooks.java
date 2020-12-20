@@ -5,6 +5,7 @@
  */
 package Vermeg;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -30,24 +31,47 @@ public class ManageBooks {
       
        public void store(Book b)throws SQLException{
         this.conec.addBook(b,"books");
-           System.out.println("Book successfully added");
+        System.out.println("Book successfully added");
     }
        
         public String[][] index()throws SQLException{
-        String res[][];
+         String res[][];
          res=this.conec.getAllBooks("books") ;
          System.out.println(Arrays.deepToString(res));
          return res;
     }
-       
-           public static void main(String args[]){
+
+        public void getBookByID(int id)throws SQLException{
+            ResultSet res=this.conec.getBookbyId(id);
+            ResultSetMetaData rsmd = res.getMetaData();
+            int nbCol = rsmd.getColumnCount();
+            if(!res.next())
+                System.out.println("book not found");
+            else{
+                while(res.next()){
+                    for (int i = 1; i <= nbCol; i++) {
+                        if (i > 1) System.out.print(",  ");
+                        String columnValue = res.getString(i);
+                        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                    }
+                System.out.println("");
+                 }
+            }
+        }
+        public void destroy(int id)throws SQLException{
+            this.conec.deleteBook(id);
+        }
+
+    public static void main(String args[]){
         try {
             ManageBooks manager=new ManageBooks();
-            Book b=new Book(7,"book4","mohamed",50.99,2019);
-            System.out.println(b);
-            manager.index();
+            Book b=new Book("book4","mohamed",50.99,"2019");
             manager.store(b);
             manager.index();
+            //manager.getBookByID(1);
+            // manager.destroy(2);
+
+
              
         } catch (SQLException ex) {
             Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);

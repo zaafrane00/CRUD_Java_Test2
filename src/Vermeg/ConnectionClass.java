@@ -12,25 +12,40 @@ import java.util.logging.Logger;
  * @author Zaafrane
  */
 public class ConnectionClass {
+
          protected Statement stm=null;
          protected ResultSet res=null;
          protected java.sql.Connection myConnection=null;
-         
-         
+
           public ConnectionClass() throws ClassNotFoundException,SQLException {
          Class.forName("com.mysql.jdbc.Driver");
-         myConnection=DriverManager.getConnection("jdbc:mysql://localhost/javatest","root","");  
+         myConnection=DriverManager.getConnection("jdbc:mysql://localhost/javabook","root","");
     }
-          
-        void addBook(Book book, String table) throws SQLException {
+
+
+    public ResultSet getBookbyId(int id) {
+        ResultSet res = null;
+        try {
+            String req = "SELECT * FROM books WHERE id = ?";
+            PreparedStatement ps = myConnection.prepareStatement(req);
+            ps.setInt(1, id);
+            res = ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+
+    void addBook(Book book, String table) throws SQLException {
         stm=myConnection.createStatement();
         String req="";
-        req="insert into "+table+"(title,auther,price,releasee)values('"+book.title+"','"+book.auther+"',"+book.price+","+book.release+")";
+        req="insert into "+table+"(title,auther,price,releaseDate)values('"+book.title+"','"+book.auther+"',"+book.price+","+book.releaseDate+")";
         //System.out.println(req);
         stm.executeUpdate(req);
     }
         
-         String [][] getAllBooks(String table) throws SQLException {
+    String [][] getAllBooks(String table) throws SQLException {
         stm=myConnection.createStatement();
         String response[][];
         String req="";      
@@ -52,6 +67,20 @@ public class ConnectionClass {
         }
         return response;
     }
-         
+      public void deleteBook(int id)throws SQLException{
+        if(getBookbyId(id).next()){
+            String req = "DELETE FROM books WHERE id = ?";
+            PreparedStatement ps = myConnection.prepareStatement(req);
+            ps.setInt(1, id);
+            if (ps.executeUpdate()==-1)
+                System.out.println("An error occured we couldn't delete this book ");
+            else
+                System.out.println("Book deleted successfully");
+            ps.close();
+        }
+        else
+            System.out.println("None of the books have the specified  ID: "+ id);
+        }
+
 }
 

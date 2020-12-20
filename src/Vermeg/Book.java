@@ -14,34 +14,48 @@ public class Book {
     protected String title;
     protected String auther;
     protected double price;
-    protected int release;
+    protected String releaseDate;
 
-    public Book(int id,String title, String auther, double price, int release) {
-        this.id=id;
+    public Book(String title, String auther, double price, String releaseDate) {
         this.title = title;
         this.auther = auther;
         this.price = price;
-        this.release = release;
+        this.releaseDate = releaseDate;
     }
     
      public Book(Book b) {
-         this.id=b.id;
         this.title = b.title;
         this.auther = b.auther;
         this.price = b.price;
-        this.release = b.release;
+        this.releaseDate = b.releaseDate;
     }
      
      public Book() {
     }
 
-    @Override
-    public String toString() {
-        return "Book{" + "id=" + id + ", title=" + title + ", auther=" + auther + ", price=" + price + ", release=" + release + '}';
+    public void setId(int id) {
+        this.id = id;
     }
 
-    
-    
-   
-    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuther(String auther) {
+        this.auther = auther;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" + "id=" + id + ", title=" + title + ", auther=" + auther + ", price=" + price + ", release=" + releaseDate + '}';
+    }
+
 }
