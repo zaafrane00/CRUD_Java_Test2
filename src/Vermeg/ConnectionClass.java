@@ -13,9 +13,9 @@ import java.util.logging.Logger;
  */
 public class ConnectionClass {
 
-         protected Statement stm=null;
-         protected ResultSet res=null;
-         protected java.sql.Connection myConnection=null;
+         public Statement stm=null;
+         public ResultSet res=null;
+         public java.sql.Connection myConnection=null;
 
           public ConnectionClass() throws ClassNotFoundException,SQLException {
          Class.forName("com.mysql.jdbc.Driver");

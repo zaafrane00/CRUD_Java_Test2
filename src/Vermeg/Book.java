@@ -29,8 +29,28 @@ public class Book {
         this.price = b.price;
         this.releaseDate = b.releaseDate;
     }
-     
-     public Book() {
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuther() {
+        return auther;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Book() {
     }
 
     public void setId(int id) {
